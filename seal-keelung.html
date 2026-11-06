@@ -26,7 +26,7 @@
   --r:22px;
   --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
   --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
-  --bar-h:58px; --dock-h:66px; --fz:1.17; --g:12px;
+  --bar-h:58px; --dock-h:66px; --fz:1; --g:12px;
 }
 :root[data-theme="light"]{
   color-scheme:light;
@@ -478,9 +478,9 @@ function sealInner(opts = {}){
   const eyes = opts.sleepy
     ? `<path d="M92 43 q5 4 10 0M112 43 q5 4 10 0" stroke="var(--seal-ink)" stroke-width="2" fill="none" stroke-linecap="round"/>`
     : `<g class="blink"><circle cx="97" cy="42" r="4.6" fill="var(--seal-ink)"/><circle cx="117" cy="42" r="4.6" fill="var(--seal-ink)"/><circle cx="98.6" cy="40.4" r="1.6" fill="#fff"/><circle cx="118.6" cy="40.4" r="1.6" fill="#fff"/></g>`;
-  /* raised "hi" flipper: drawn in front of the chest, light fill + outline so it never reads as a shadow; pivots at (119,80) */
+  /* raised flipper (gentle sway, no waving): drawn in front of the chest, light fill + outline so it never reads as a shadow; pivots at (119,80) */
   const waveFlip = opts.wave
-    ? `<g><path d="M113 81 C116 70 120 60 126 51 C129 46.5 135 47.5 134 53 C133 63 129 74 125 83 Z" fill="var(--seal)" stroke="var(--seal-dark)" stroke-width="1.6" stroke-linejoin="round"/><path d="M125 56 l3 -2M126 60 l3 -1" stroke="var(--seal-dark)" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>${RM ? "" : `<animateTransform attributeName="transform" type="rotate" values="-16 119 80;6 119 80;-16 119 80" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="1.3s" repeatCount="indefinite"/>`}</g>`
+    ? `<g><path d="M113 81 C116 70 120 60 126 51 C129 46.5 135 47.5 134 53 C133 63 129 74 125 83 Z" fill="var(--seal)" stroke="var(--seal-dark)" stroke-width="1.6" stroke-linejoin="round"/><path d="M125 56 l3 -2M126 60 l3 -1" stroke="var(--seal-dark)" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>${RM ? "" : `<animateTransform attributeName="transform" type="rotate" values="-4 119 80;3 119 80;-4 119 80" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="3.2s" repeatCount="indefinite"/>`}</g>`
     : "";
   return `<path d="${SEAL.tail}" fill="var(--seal-dark)"/>
     <path d="${SEAL.body}" fill="var(--seal)"/>
@@ -1197,7 +1197,7 @@ function initTheme(){
   });
 }
 /* ---------- text size ---------- */
-const FZ_KEY = "seal-fz", FZ_DEFAULT = "1.17";
+const FZ_KEY = "seal-fz", FZ_DEFAULT = "1";
 function applyFz(v){
   document.documentElement.style.setProperty("--fz", v);
   document.querySelectorAll("[data-fz]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.fz === v)));
