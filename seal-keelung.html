@@ -103,7 +103,7 @@ main{position:relative;z-index:1;padding-block:14px 20px}
 .prog-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px}
 .prog-head b{font-size:calc(17px * var(--fz))}
 .prog-head span{font-family:var(--f-num);font-weight:600;font-size:calc(17px * var(--fz));color:var(--ok);font-variant-numeric:tabular-nums}
-.dots{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.dots{display:grid;grid-template-columns:repeat(var(--n,7),minmax(0,1fr));gap:2px}
 .dots button{display:grid;justify-items:center;gap:2px;background:none;border:0;padding:2px 0;min-height:60px}
 .dots i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:var(--f-num);font-weight:600;font-size:calc(17px * var(--fz));border:2px solid var(--line);color:var(--muted);background:var(--bg)}
 .dots i svg{width:20px;height:20px}
@@ -152,7 +152,7 @@ main{position:relative;z-index:1;padding-block:14px 20px}
 .finale-head svg{width:80px;height:58px;flex:none}
 .finale h2{font-size:calc(28px * var(--fz))}
 .finale p{color:var(--muted);font-size:calc(17px * var(--fz))}
-.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .slot{aspect-ratio:4/5;border-radius:10px;border:2px dashed var(--line);display:grid;place-items:center;align-content:center;gap:2px;font-family:var(--f-num);font-weight:600;font-size:calc(24px * var(--fz));color:var(--muted);background:transparent;padding:0;overflow:hidden}
 .slot small{font-family:var(--f-body);font-size:calc(14px * var(--fz));font-weight:500}
 .slot.has{border:none;background:var(--paper);padding:4px 4px 14px;transform:rotate(var(--rot));box-shadow:0 6px 14px rgba(0,0,0,.35)}
@@ -306,6 +306,18 @@ main{position:relative;z-index:1;padding-block:14px 20px}
 .bub{animation:bub 6s ease-in infinite;opacity:0}
 @keyframes bub{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-90px);opacity:0}}
 .foam{animation:tw 2.4s ease-in-out infinite}
+.spin{animation:spin .45s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lane{animation:lane .5s linear infinite}
+@keyframes lane{to{transform:translateX(-70px)}}
+.lane.back{animation-name:laneb}
+@keyframes laneb{from{transform:translateX(-70px)}to{transform:translateX(0)}}
+.pass{animation:pass 6s linear infinite}
+@keyframes pass{to{transform:translateX(-400px)}}
+.pass.back{animation-name:passb}
+@keyframes passb{from{transform:translateX(-400px)}to{transform:translateX(0)}}
+.drive{animation:drive 16s linear infinite;animation-delay:-5s}
+@keyframes drive{from{transform:translateX(-40px)}to{transform:translateX(440px)}}
 
 /* caps so tight UI chrome survives the biggest text sizes */
 .brand b{font-size:min(calc(21px * var(--fz)),24px)}
@@ -372,9 +384,9 @@ main{position:relative;z-index:1;padding-block:14px 20px}
 <section class="hero">
   <div class="hero-art" id="heroArt"></div>
   <div class="wrap hero-copy">
-    <p class="eyebrow">KEELUNG · 6 STOPS · 09:00–20:30</p>
+    <p class="eyebrow">KEELUNG · 開車一日 · 08:30–20:00</p>
     <h1>跟著海豹，<br>把<em>基隆</em>走一圈</h1>
-    <p class="lede">西門出發，看正濱彩色屋、踩和平島礁岩、登基隆塔，最後在廟口吃飽回家。每站拍一張打卡照，回程就能下載整天的拼貼。</p>
+    <p class="lede">開車從台北出發，先到潮境公園吹海風，中午在和平島吃小吃、逛奇岩，傍晚登基隆塔看夕陽，最後在廟口吃飽回家。每站拍一張打卡照，回程就能下載整天的拼貼。</p>
   </div>
 </section>
 
@@ -411,51 +423,63 @@ main{position:relative;z-index:1;padding-block:14px 20px}
 <script>
 /* ---------- data ---------- */
 const STOPS = [
-  { id:"step1", start:"09:00", end:"10:10", title:"出發前往基隆", place:"捷運西門站 → 基隆火車站", short:"西門", map:"基隆火車站", scene:"train",
-    summary:"板南線轉台鐵區間車，一路往海邊去。",
-    intro:"從捷運西門站搭板南線到台北車站，跟著「台鐵」指標轉乘往基隆的區間車，車程約 45 到 60 分鐘，終點就是基隆。抵達後先把大件行李寄放在車站置物櫃，輕裝出發，再到車站旁的公車站轉乘 101 或 103 號公車前往正濱漁港。",
-    route:["捷運板南線：西門 → 台北車站（約 3 分鐘）","台鐵區間車：台北 → 基隆（約 45–60 分鐘，可刷悠遊卡）","基隆市公車 101 或 103：基隆車站 → 正濱漁港一帶（約 15 分鐘）"],
-    highlights:["一出站就是基隆港，第一眼就能看到港口和船","車站置物櫃可以寄放外套與伴手禮"],
-    tips:["悠遊卡先加值，台鐵和基隆公車都能刷","基隆多雨，摺疊傘帶著比較安心","假日早班車人多，提早幾分鐘到月台"],
-    seal:"海豹先搶個靠窗位置，等海出現。" },
-  { id:"step2", start:"10:40", end:"12:00", title:"台版威尼斯打卡", place:"正濱漁港彩色屋", short:"正濱", map:"正濱漁港彩色屋", scene:"houses",
-    summary:"彩色屋倒映在港灣裡，基隆最經典的畫面。",
-    intro:"正濱漁港沿岸一整排彩色屋，是基隆最有代表性的拍照點。站在漁港對岸看過去，紅、黃、藍、綠的房子倒映在水面上，配上停泊的漁船，難怪被叫做「台版威尼斯」。拍完照可以沿著港邊步道慢慢走，附近的阿根納造船廠遺構也在步行範圍內，斑駁的水泥結構很有電影感。",
-    route:["基隆車站搭公車 101 或 103，在正濱漁港附近下車"],
-    highlights:["從對岸拍彩色屋和倒影，水面平靜時最漂亮","沿港邊步道散步，看漁船進出","步行可到阿根納造船廠遺構"],
-    food:["港邊的咖啡店與冰品小店，適合歇腳"],
-    tips:["無風的晴天倒影最清楚","港邊有些地方沒有欄杆，拍照時注意腳步","週末人潮多，早點到比較好拍"],
-    seal:"這裡的房子比我的魚還要五顏六色。" },
-  { id:"step3", start:"12:30", end:"15:30", title:"無敵海景與奇岩怪石", place:"和平島地質公園", short:"和平島", map:"和平島地質公園", scene:"rocks",
+  { id:"d1", start:"08:30", end:"09:20", title:"開車出發往基隆", place:"台北西門 → 潮境公園", short:"出發", map:"潮境公園", scene:"car",
+    hop:"抵達八斗子，下車開逛",
+    summary:"國道 1 號接台 62 線，一路開到八斗子海邊。",
+    intro:"從台北西門出發，上國道 1 號往基隆方向，再接台 62 線（萬瑞快速道路）往八斗子，下交流道後沿北寧路就到潮境公園，車程約 50 分鐘到 1 小時。假日潮境公園的停車位有限，早一點到比較好停。",
+    route:["台北西門 → 國道 1 號往基隆方向","接台 62 線（萬瑞快速道路）往八斗子方向","八斗子交流道下，沿北寧路約 5 分鐘到潮境公園"],
+    highlights:["台 62 高架段可以看到山景和海","出發前先把今天的導航順序存好：潮境公園 → 和平島 → 東岸停車場"],
+    tips:["台 62 往東走，瑞芳出口在前、八斗子在後，別太早下交流道","假日潮境公園停車場容易滿，可改停海科館區的停車場","基隆多雨，車上放一把傘"],
+    seal:"海豹坐副駕，負責看海和報路。" },
+  { id:"d2", start:"09:20", end:"11:30", title:"海風草原與裝置藝術", place:"潮境公園", short:"潮境", map:"潮境公園", scene:"chaojing",
+    hop:"開車約 15 分鐘",
+    summary:"面海的大草原、海洋裝置藝術，風大時滿天風箏。",
+    intro:"潮境公園在八斗子海邊，前身是垃圾掩埋場，整理後變成一大片面海的草原。坡上有用海洋廢棄物做成的裝置藝術，天氣好時可以遠眺基隆嶼，風大的日子常有人來放風箏。公園下方的潮境海灣是海洋保育區，海水清澈；旁邊就是國立海洋科技博物館，時間夠還能順走望幽谷步道。",
+    route:["八斗子交流道下，沿北寧路約 5 分鐘","停潮境公園停車場；客滿時改停海科館區停車場，步行約 10 分鐘（有一段上坡）"],
+    highlights:["面海大草原，視野很開闊","海洋廢棄物裝置藝術，拍照很好看","天氣好時遠眺基隆嶼","旁邊的望幽谷步道可以順遊"],
+    tips:["海邊風大，帶件外套，帽子要壓好","草地幾乎沒有遮蔽，記得防曬","保育區內不能撿拾或捕捉海洋生物"],
+    seal:"這片草原風好大，海豹的鬍鬚都吹歪了。" },
+  { id:"d3", start:"11:50", end:"12:50", title:"和平島在地小吃午餐", place:"和平島菜市場口", short:"午餐", map:"和平島米苔目", scene:"lunch",
+    hop:"開車約 5 分鐘",
+    summary:"米苔目、肉羹麵、青苔水餃，一人 200–300 元吃得飽。",
+    intro:"從潮境公園開車約 15 分鐘到和平島。過橋後先別急著進地質公園，在島上菜市場入口一帶吃午餐：和平島米苔目一碗只要幾十元，斜對面的藍媽媽青苔水餃是島上名物，附近的阿美麵店也有大碗切仔麵和小菜。兩三樣點下來，一人大約 200 到 300 元就能吃飽。",
+    route:["潮境公園沿北寧路、中正路往和平島，約 15 分鐘","過和平橋後在菜市場入口一帶用餐"],
+    food:["和平島米苔目：米苔目、肉羹麵，一碗幾十元；營業到下午 2 點左右，中午前常客滿","藍媽媽青苔水餃：在米苔目斜對面，和平島有名的青苔水餃","阿美麵店：大碗切仔麵配小菜，吃得飽"],
+    highlights:["在地人也吃的漁村小吃","吃飽直接去地質公園，不用繞路"],
+    tips:["小吃店多半只收現金","價格與營業時間以現場為準，週末中午要排隊","12 點前到可以避開用餐尖峰"],
+    seal:"一碗米苔目配水餃，海豹的肚子圓滾滾。" },
+  { id:"d4", start:"13:00", end:"15:30", title:"無敵海景與奇岩怪石", place:"和平島地質公園", short:"和平島", map:"和平島地質公園", scene:"rocks",
+    hop:"開車約 20 分鐘，停好車",
     summary:"海蝕地形、海水泳池，好天氣能看到基隆嶼。",
-    intro:"和平島在基隆港北邊，靠一座橋和本島相連。島上的地質公園保留了海浪長年雕出來的地形：一塊塊像豆腐的豆腐岩、頭重腳輕的蕈狀岩，還有大片海蝕平台。夏天開放的天然海水泳池就在礁岩旁邊，天氣好時能遠遠看到基隆嶼。中午先在園區內用餐，再慢慢把步道走完。",
-    route:["正濱漁港搭公車 101 往和平島方向，約 10 分鐘"],
+    intro:"和平島在基隆港北邊，靠一座橋和本島相連。島上的地質公園保留了海浪長年雕出來的地形：一塊塊像豆腐的豆腐岩、頭重腳輕的蕈狀岩，還有大片海蝕平台。夏天開放的天然海水泳池就在礁岩旁邊，天氣好時能遠遠看到基隆嶼。吃飽飯來這裡慢慢走，剛好消化。",
+    route:["從菜市場口開車約 5 分鐘到和平島公園","和平島公園有附設停車場"],
     highlights:["豆腐岩、蕈狀岩等海蝕地形","沿步道走上觀海亭看太平洋","天氣好時遠眺基隆嶼","夏季開放的天然海水泳池"],
-    food:["園區內的景觀餐廳或輕食，邊吃邊看海"],
     tips:["入園需購票，票價與開放時間以官方公告為準","海邊風大、日照強，帶外套和防曬","礁岩濕滑，穿防滑的鞋","不要越過警戒線，浪大時遠離岩岸"],
-    seal:"這片礁岩是海豹的理想午睡地點。" },
-  { id:"step4", start:"16:00", end:"17:00", title:"登高俯瞰基隆港灣", place:"基隆塔", short:"基隆塔", map:"基隆塔", scene:"tower",
-    summary:"搭電梯上塔頂，整個港灣都在腳下。",
-    intro:"基隆塔是 2023 年啟用的新地標，從義二路搭電梯上到塔頂，再經過空橋接到中正公園。站上觀景平台，基隆港、海洋廣場和進出港的船都在腳下。這個時段接近黃昏，運氣好能看到港邊的燈一盞盞亮起來。看完後步行下山，約 10 分鐘就到廟口夜市。",
-    route:["和平島搭公車回市區，在義二路附近下車步行"],
-    highlights:["塔頂觀景平台俯瞰基隆港","空橋連到中正公園","傍晚的港灣夕色與燈光"],
-    tips:["開放時間與票價以官方公告為準","天候不佳時可能暫停開放","高處風大，帽子和小東西拿好"],
+    seal:"吃飽了，來礁岩上曬太陽消化一下。" },
+  { id:"d5", start:"16:00", end:"17:20", title:"登高看港灣夕陽", place:"基隆塔", short:"基隆塔", map:"基隆塔", scene:"tower",
+    hop:"步行約 10 分鐘",
+    summary:"車停市區，搭電梯上塔頂看港灣和日落。",
+    intro:"從和平島開回市區，把車停在東岸立體停車場或附近的公有停車場，接下來基隆塔和廟口都用走的，不用再移車。基隆塔是 2023 年啟用的新地標，從義二路搭電梯上到塔頂，再經過空橋接到中正公園。秋冬日落大約在下午五點左右，這個時段上去，剛好看港灣從夕陽變成夜景。",
+    route:["和平島開車回市區，約 20 分鐘","車停東岸立體停車場（或附近公有停車場）","步行約 10 分鐘到義二路的基隆塔入口"],
+    highlights:["塔頂觀景平台俯瞰基隆港","空橋連到中正公園","港灣的夕陽和亮燈"],
+    tips:["開放時間與票價以官方公告為準","天候不佳時可能暫停開放","高處風大，帽子和小東西拿好","市區不要臨停，直接停停車場最省事"],
     seal:"從這麼高看港口，船都變得像玩具一樣。" },
-  { id:"step5", start:"17:30", end:"19:30", title:"廟口夜市美食巡禮", place:"基隆廟口夜市", short:"廟口", map:"基隆廟口夜市", scene:"market",
+  { id:"d6", start:"17:30", end:"19:00", title:"廟口夜市美食巡禮", place:"基隆廟口夜市", short:"廟口", map:"基隆廟口夜市", scene:"market",
+    hop:"走回停車場取車",
     summary:"黃燈籠下吃滷肉飯、肉羹湯和營養三明治。",
     intro:"廟口夜市以奠濟宮為中心，沿著仁三路與愛四路展開，一排黃色燈籠就是它的招牌畫面。很多攤位都有編號，建議先吃正餐再慢慢掃小吃：仁三路的天一香肉焿順點滷肉飯配肉羹湯，再到天盛舖吃現炸的營養三明治，趁熱吃最好。",
     route:["從基隆塔步行下山約 10 分鐘"],
     food:["天一香肉焿順：滷肉飯＋肉羹湯","天盛舖營養三明治（58 號攤位，趁熱吃）","鼎邊趖","泡泡冰當飯後甜點"],
     highlights:["奠濟宮前的黃燈籠街景","一攤一攤有編號的老攤位"],
-    tips:["不少攤位只收現金","尖峰時段排隊久，可以分頭排","垃圾請帶走或丟在指定地點"],
+    tips:["不少攤位只收現金","尖峰時段排隊久，可以分頭排","伴手禮可以在這裡一起買好再回停車場"],
     seal:"營養三明治裡有沒有魚？海豹想知道。" },
-  { id:"step6", start:"19:30", end:"20:30", title:"吃飽喝足準備賦歸", place:"基隆火車站 → 台北", short:"回家", map:"基隆火車站", scene:"home",
-    summary:"沿港邊散步回車站，在車上整理今天的照片。",
-    intro:"從廟口夜市沿著港邊步行約 10 分鐘回到基隆火車站，先到置物櫃領回行李，再搭台鐵區間車回台北。車上可以整理今天的打卡照，到站前就能把旅程拼貼做好。",
-    route:["廟口夜市步行約 10 分鐘到基隆車站","台鐵區間車：基隆 → 台北（約 45–60 分鐘）"],
-    highlights:["夜晚的基隆港燈光","回程車上整理今天的照片"],
-    tips:["先查好回程班次","置物櫃記得取件","每站的打卡照上傳完，就能在頁面最下方下載旅程拼貼"],
-    seal:"吃飽了，海豹要在車上睡一下。" }
+  { id:"d7", start:"19:00", end:"20:00", title:"開車回台北", place:"基隆 → 台北", short:"回家", map:"西門町", scene:"drivehome",
+    summary:"取車上國道，乘客在車上整理今天的照片。",
+    intro:"從廟口走回停車場取車，上國道 1 號往台北，車程約 40 分鐘到 1 小時，視車況而定。開車的人專心開，乘客可以在車上把今天的打卡照整理好，到家前就能把旅程拼貼做出來。",
+    route:["步行回停車場取車","國道 1 號往台北方向，約 40–60 分鐘"],
+    highlights:["上國道前回頭看一眼基隆港夜景","乘客在車上整理照片、做拼貼"],
+    tips:["週末晚上國道 1 號回台北常塞車，出發前看一下即時路況","累了就進服務區休息，不要勉強開","每站打卡照上傳完，就能在頁面最下方下載旅程拼貼"],
+    seal:"海豹在副駕睡一下，司機辛苦了。" }
 ];
 
 /* ---------- helpers ---------- */
@@ -518,46 +542,26 @@ const stars = (n, h, seed = 1) => { let s = seed, out = ""; const r = () => (s =
   return out; };
 const cloud = (x,y,s,fill="#fff",op=.9) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${fill}" opacity="${op}"><ellipse cx="0" cy="0" rx="30" ry="9"/><ellipse cx="14" cy="-7" rx="16" ry="10"/><ellipse cx="-10" cy="-4" rx="12" ry="7"/></g>`;
 const boat = (x,y,c,delay=0) => `<g transform="translate(${x} ${y})"><g class="bob" style="animation-delay:${delay}s"><path d="M0 0 h50 l-9 13 h-32Z" fill="${c}"/><rect x="12" y="-12" width="19" height="12" fill="#f3f3f3"/><rect x="16" y="-9" width="5" height="5" fill="#7cc5ef"/><rect x="24" y="-9" width="5" height="5" fill="#7cc5ef"/><path d="M36 -1 v-22" stroke="#555" stroke-width="1.5"/><path d="M36 -23 l11 6 h-11Z" fill="#ff5a5a"/></g></g>`;
+/* side-view car facing right; origin top-left, ~140×58. Seal rides in the front window. */
+const car = (c = "#ff7a59", night = false, sleepy = false) => {
+  const win = night ? "#ffe08a" : "#cfeaff";
+  const face = sleepy
+    ? `<path d="M85 15 q1.6 1.6 3.2 0M91 15 q1.6 1.6 3.2 0" stroke="#15202b" stroke-width="1.1" fill="none" stroke-linecap="round"/>`
+    : `<circle cx="86.4" cy="15" r="1.4" fill="#15202b"/><circle cx="92.6" cy="15" r="1.4" fill="#15202b"/><circle cx="86.9" cy="14.5" r=".45" fill="#fff"/><circle cx="93.1" cy="14.5" r=".45" fill="#fff"/>`;
+  return `<path d="M4 40 C2 30 6 26 18 24 L38 21 L54 8 C58 5 62 4 68 4 H98 C104 4 108 6 112 11 L124 23 C134 25 138 29 138 36 V42 C138 45 136 47 133 47 H8 C5 47 4 45 4 42Z" fill="${c}"/>
+    <path d="M4 38 H138" stroke="#000" stroke-opacity=".12" stroke-width="3"/>
+    <path d="M44 22 L57 11 C59 9.5 61 9 64 9 H72 V22Z" fill="${win}"/>
+    <path d="M77 9 H96 C100 9 103 10 105 13 L114 22 H77Z" fill="${win}"/>
+    <circle cx="89.5" cy="17" r="6.6" fill="var(--seal)"/>${face}<ellipse cx="89.5" cy="18.8" rx="1.6" ry="1.1" fill="#15202b"/>
+    <path d="M77 22 H114" stroke="${c}" stroke-width="2"/>
+    <path d="M74.5 22 V41M60 28 h6M95 28 h6" stroke="#000" stroke-opacity=".2" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="129" y="29" width="9" height="5" rx="2" fill="${night ? "#fff6c2" : "#fff4d6"}"/>
+    <rect x="4" y="29" width="6" height="5" rx="2" fill="#e8413a"/>
+    ${[32,110].map(x => `<g transform="translate(${x} 46)"><circle r="11" fill="#22262d"/><circle r="5.6" fill="#c9cfd8"/><g class="spin"><path d="M0 -5 V5M-5 0 H5" stroke="#6b7480" stroke-width="1.8" stroke-linecap="round"/></g></g>`).join("")}`;
+};
 const svgWrap = (inner, vb = "0 0 400 240", label = "") => `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(label)}">${inner}</svg>`;
 
 const SCENES = {
-  train(u){
-    let win = ""; for (let i=0;i<5;i++) win += `<rect x="${12+i*36}" y="133" width="26" height="14" rx="3" fill="#d6ecff"/>`;
-    return `<defs>${grad(u+"sk",["#8cc6ee","#cfe8f7","#ffe3c6"])}${grad(u+"se",["#3f9bd0","#1d5e8e"])}</defs>
-    <rect width="400" height="240" fill="url(#${u}sk)"/>
-    <circle class="glow" cx="322" cy="58" r="34" fill="#fff6d5" opacity=".5"/><circle cx="322" cy="58" r="20" fill="#fff1b8"/>
-    <g class="drift">${cloud(80,48,1.1)}${cloud(220,72,.8)}${cloud(370,36,.7)}</g>
-    <path d="M0 140 C60 108 120 126 170 114 C230 100 300 132 400 108 V180 H0Z" fill="#79b394"/>
-    <path d="M0 158 C70 136 150 152 220 140 C290 130 340 150 400 140 V180 H0Z" fill="#4f8f70"/>
-    <rect y="176" width="400" height="64" fill="url(#${u}se)"/>
-    ${wave(184,3,"#62b4df",7,.7)}${wave(204,4,"#2f7fb3",10,.85)}
-    <rect y="166" width="400" height="5" fill="#5a4a42"/>
-    <g class="run">
-      <rect x="0" y="126" width="190" height="38" rx="12" fill="#2f6fb3"/>
-      <path d="M186 126 h16 q20 0 24 20 v18 h-40Z" fill="#285f9b"/>
-      <rect x="0" y="152" width="226" height="5" fill="#ffcf5a"/>${win}
-      <path d="M196 132 h7 q12 0 16 13 h-23Z" fill="#d6ecff"/>
-      <circle cx="97" cy="142" r="6.5" fill="var(--seal)"/><circle cx="94.6" cy="140.6" r="1.2" fill="#15202b"/><circle cx="99.4" cy="140.6" r="1.2" fill="#15202b"/><ellipse cx="97" cy="143.8" rx="1.5" ry="1" fill="#15202b"/>
-      <g fill="#2a2f36"><circle cx="30" cy="166" r="5"/><circle cx="62" cy="166" r="5"/><circle cx="140" cy="166" r="5"/><circle cx="172" cy="166" r="5"/><circle cx="208" cy="166" r="5"/></g>
-    </g>`;
-  },
-  houses(u){
-    const H = [[62,"#f26b5b"],[54,"#ffc94d"],[70,"#5bb8e8"],[58,"#8fd16a"],[66,"#f59ac0"],[50,"#7d8cf0"],[72,"#ffa24d"],[60,"#4fd1b5"]];
-    const row = H.map(([h,c],i) => { const x = 6+i*49, y = 140-h; let w = "";
-      for (let r=0; r<Math.floor((h-14)/20); r++) w += `<rect x="${x+9}" y="${y+12+r*20}" width="9" height="10" fill="#fff8e6"/><rect x="${x+28}" y="${y+12+r*20}" width="9" height="10" fill="#fff8e6"/>`;
-      return `<rect x="${x}" y="${y}" width="46" height="${h}" fill="${c}"/><rect x="${x-2}" y="${y-6}" width="50" height="7" fill="${c}"/><rect x="${x-2}" y="${y-6}" width="50" height="7" fill="#000" opacity=".18"/>${w}`; }).join("");
-    return `<defs>${grad(u+"sk",["#86c9f0","#e3f4ff"])}${grad(u+"se",["#2f86b8","#12507a"])}<clipPath id="${u}cl"><rect y="142" width="400" height="100"/></clipPath></defs>
-    <rect width="400" height="240" fill="url(#${u}sk)"/>
-    <g class="drift">${cloud(70,30,1)}${cloud(300,44,.9)}</g>
-    <path d="M0 92 C60 70 120 84 180 74 C250 62 320 86 400 70 V140 H0Z" fill="#79ad97"/>
-    ${row}
-    <rect y="138" width="400" height="5" fill="#5b4a3e"/>
-    <rect y="142" width="400" height="100" fill="url(#${u}se)"/>
-    <g clip-path="url(#${u}cl)"><g class="rip"><g transform="translate(0 286) scale(1 -1)" opacity=".38">${row}</g></g></g>
-    <g class="drift" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".45"><path d="M30 170 h40M150 186 h60M280 168 h36M90 210 h50M250 220 h70"/></g>
-    ${boat(60,182,"#e94f4f",0)}${boat(250,196,"#2f6fb3",1.2)}
-    ${wave(226,3,"#0f4a72",9,.9)}`;
-  },
   rocks(u){
     let tofu = ""; for (let x=240;x<400;x+=22) tofu += `<path d="M${x} 196 L${x-8} 240"/>`; tofu += `<path d="M228 212 H400M222 226 H400"/>`;
     return `<defs>${grad(u+"sk",["#6fc0ee","#d6f0ff"])}${grad(u+"se",["#27a1c8","#0d6690"])}</defs>
@@ -618,25 +622,99 @@ const SCENES = {
     ${sealAt(300,150,.42,{bob:true,wave:true})}
     <rect y="232" width="400" height="8" fill="#140c22"/>`;
   },
-  home(u){
-    let win = ""; for (let i=0;i<5;i++) win += `<rect x="${12+i*36}" y="133" width="26" height="14" rx="3" fill="#ffe08a"/>`;
-    let lights = ""; for (let x=10;x<400;x+=26) lights += `<circle class="tw" style="animation-delay:${(x%7)*.3}s" cx="${x}" cy="176" r="2" fill="#ffd27a"/><rect x="${x-1}" y="184" width="2" height="${10+(x%3)*6}" fill="#ffd27a" opacity=".35"/>`;
+  car(u){
+    let trees = ""; for (let k = 0; k < 2; k++) [20,96,170,236,318].forEach((x,i) => { const X = x + k*400, h = 18 + (i%3)*6;
+      trees += `<rect x="${X-2}" y="${150-h*.4}" width="4" height="${h*.4}" fill="#5b4a3e"/><ellipse cx="${X}" cy="${150-h*.4-h*.45}" rx="${h*.42}" ry="${h*.55}" fill="${i%2 ? "#3f8a5f" : "#4f9e6c"}"/>`; });
+    return `<defs>${grad(u+"sk",["#8cc6ee","#d7eefb","#ffe7c9"])}${grad(u+"se",["#4aa6d6","#1f6c9c"])}</defs>
+    <rect width="400" height="240" fill="url(#${u}sk)"/>
+    <circle class="glow" cx="330" cy="50" r="30" fill="#fff6d5" opacity=".5"/><circle cx="330" cy="50" r="18" fill="#fff1b8"/>
+    <g class="drift">${cloud(70,40,1)}${cloud(230,62,.8)}${cloud(380,30,.6)}</g>
+    <path d="M0 120 C60 92 130 108 190 96 C250 84 320 110 400 92 V150 H0Z" fill="#9cc7b0"/>
+    <path d="M0 136 C70 116 150 128 220 118 C290 108 340 126 400 118 V152 H0Z" fill="#79b394"/>
+    <g class="pass" style="animation-duration:7s">${trees}</g>
+    <rect y="150" width="400" height="20" fill="url(#${u}se)"/>
+    <g class="drift" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M40 158 h24M160 162 h30M300 157 h20"/></g>
+    <rect y="168" width="400" height="72" fill="#4a5059"/>
+    <rect y="168" width="400" height="5" fill="#cfd5dc"/>
+    <g class="pass" style="animation-duration:2.4s"><path d="M0 172 V164M50 172 V164M100 172 V164M150 172 V164M200 172 V164M250 172 V164M300 172 V164M350 172 V164M400 172 V164M450 172 V164M500 172 V164M550 172 V164M600 172 V164M650 172 V164M700 172 V164M750 172 V164" stroke="#cfd5dc" stroke-width="2.5"/></g>
+    <g class="lane"><path d="M0 222 h34M70 222 h34M140 222 h34M210 222 h34M280 222 h34M350 222 h34M420 222 h34M490 222 h34" stroke="#f3f3f3" stroke-width="4" stroke-linecap="round"/></g>
+    <g transform="translate(300 106)"><path d="M10 50 V20M60 50 V20" stroke="#8b949e" stroke-width="3"/><rect x="0" y="0" width="72" height="28" rx="4" fill="#1f7a4d" stroke="#fff" stroke-width="1.5"/><text x="36" y="19" text-anchor="middle" font-size="13" font-weight="700" fill="#fff" font-family="Noto Sans TC, sans-serif">基隆 →</text></g>
+    <g transform="translate(110 142)"><g class="bob" style="animation-duration:.9s">${car("#ff7a59")}</g></g>`;
+  },
+  chaojing(u){
+    const kite = (x, y, c1, c2, d, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><g class="swing" style="animation-delay:${d}s;animation-duration:4.2s"><path d="M0 0 L11 15 L0 32 L-11 15Z" fill="${c1}"/><path d="M0 0 V32M-11 15 H11" stroke="${c2}" stroke-width="1"/><path d="M0 32 q5 8 -2 14 q-6 6 1 13" stroke="${c2}" stroke-width="1.3" fill="none"/></g></g>`;
+    return `<defs>${grad(u+"sk",["#6fc0ee","#def3ff"])}${grad(u+"se",["#2ea3cf","#0f6a96"])}${grad(u+"gr",["#97d47f","#4f9a58"])}</defs>
+    <rect width="400" height="240" fill="url(#${u}sk)"/>
+    <circle class="glow" cx="345" cy="38" r="26" fill="#fff8d6" opacity=".55"/><circle cx="345" cy="38" r="15" fill="#fff4bf"/>
+    <g class="drift">${cloud(90,34,.9)}${cloud(250,56,.7)}</g>
+    <rect y="104" width="400" height="136" fill="url(#${u}se)"/>
+    <path d="M292 106 C302 94 314 90 326 97 C332 100 338 104 346 106Z" fill="#5f87a0"/>
+    ${wave(112,2,"#6cc6e6",9,.6)}${wave(134,3,"#1f8ab5",11,.7)}
+    <g class="gull"><g transform="translate(0 66)"><path class="flap" d="M0 0 q6 -6 12 0 q6 -6 12 0" stroke="#33414d" stroke-width="2" fill="none"/></g></g>
+    <path d="M0 240 V124 C60 108 140 114 200 134 C244 150 270 180 284 240Z" fill="url(#${u}gr)"/>
+    <g stroke="#3f8a4a" stroke-width="1.5" stroke-linecap="round" opacity=".7"><path d="M40 160 l-3 -7M44 160 l2 -8M120 176 l-3 -7M124 176 l2 -8M210 206 l-3 -7M214 206 l2 -8M80 214 l-3 -7M84 214 l2 -8"/></g>
+    <path d="M262 240 C272 214 300 204 338 206 C368 208 388 214 400 210 V240Z" fill="#8d7a63"/>
+    <g class="foam" fill="#fff"><ellipse cx="292" cy="206" rx="18" ry="3.5"/><ellipse cx="360" cy="204" rx="14" ry="3"/><ellipse cx="250" cy="226" rx="12" ry="3"/></g>
+    <g transform="translate(158 150)">
+      <path d="M0 0 V34" stroke="#5c6670" stroke-width="3"/>
+      <g class="bob" style="animation-duration:6s">
+        <path d="M-34 -14 L-50 -27 L-47 -14 L-50 -1Z" fill="#ff7a59"/>
+        <path d="M-34 -14 C-14 -34 24 -30 40 -14 C24 2 -14 6 -34 -14Z" fill="#ffcf4d"/>
+        <path d="M-20 -24 C-16 -14 -16 -10 -20 -3M-6 -28 C-2 -16 -2 -10 -6 1M8 -27 C12 -16 12 -10 8 0" stroke="#3a8dde" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M18 -24 C22 -16 22 -10 18 -4" stroke="#ff5a7a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="30" cy="-16" r="3.2" fill="#15202b"/><circle cx="31" cy="-17" r="1" fill="#fff"/>
+      </g>
+    </g>
+    ${kite(78,26,"#ff5a7a","#fff",0)}${kite(232,18,"#ffd25a","#c6461f",1.2,.8)}
+    ${sealAt(20,118,.5,{bob:true})}`;
+  },
+  lunch(u){
+    let awn = ""; for (let x = 0; x < 400; x += 25) awn += `<rect x="${x}" y="0" width="25" height="22" fill="${(x/25)%2 ? "#fff3d6" : "#2f7fb3"}"/>`;
+    const scal = `<path d="M0 22 ${Array.from({length:16},()=>"q6.25 9 12.5 0 q6.25 9 12.5 0").join(" ").replace(/q6.25 9 12.5 0 q6.25 9 12.5 0/g,"q12.5 10 25 0")}" fill="#2f7fb3"/>`;
+    const steam = (x, y) => [0,.9,1.7].map((d,k) => `<path class="steam" style="animation-delay:${d}s" d="M${x-7+k*7} ${y} q-4 -6 0 -12 q4 -6 0 -12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>`).join("");
+    return `<defs>${grad(u+"sk",["#9ad3f3","#e8f6ff"])}${grad(u+"se",["#3a9bcc","#1a628f"])}</defs>
+    <rect width="400" height="240" fill="url(#${u}sk)"/>
+    <g class="drift">${cloud(300,52,.8)}</g>
+    <path d="M0 84 C70 66 140 76 210 68 C280 60 340 76 400 66 V96 H0Z" fill="#7aa98f"/>
+    <rect y="94" width="400" height="60" fill="url(#${u}se)"/>
+    ${boat(30,112,"#e94f4f",0)}${boat(200,118,"#2f6fb3",1.1)}${boat(320,110,"#f2a33a",.5)}
+    <rect y="150" width="400" height="8" fill="#7c6a58"/>
+    ${awn}${scal}
+    <rect x="132" y="34" width="136" height="28" rx="7" fill="#fff3d0" stroke="#c6461f" stroke-width="2"/>
+    <text x="200" y="53.5" text-anchor="middle" font-size="15" font-weight="700" fill="#7a2a12" font-family="Noto Sans TC, sans-serif">米苔目・青苔水餃</text>
+    ${sealAt(286,128,.52,{bob:true})}
+    <rect y="170" width="400" height="70" fill="#c58a52"/><rect y="164" width="400" height="9" fill="#a06d3e"/>
+    <g transform="translate(150 192)">
+      <path d="M-40 -12 h80 q-5 30 -40 30 q-35 0 -40 -30Z" fill="#f5f0e6"/><ellipse cx="0" cy="-12" rx="40" ry="9" fill="#c98b4a"/>
+      <path d="M-26 -14 q8 -5 16 0 q8 5 16 0 q8 -5 16 0M-24 -10 q8 -4 16 0 q8 4 16 0 q8 -4 14 0" stroke="#fff4dc" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="-14" cy="-13" r="3" fill="#6bbf59"/><circle cx="16" cy="-12" r="2.6" fill="#6bbf59"/><circle cx="2" cy="-15" r="2.4" fill="#f2c94c"/>
+      ${steam(0,-20)}
+    </g>
+    <g transform="translate(262 202)"><ellipse cx="0" cy="0" rx="40" ry="11" fill="#f5f0e6"/>
+      <path d="M-30 -2 a10 9 0 0 1 20 0Z M-8 -3 a10 9 0 0 1 20 0Z M14 -2 a10 9 0 0 1 20 0Z" fill="#7fcf8a" stroke="#4f9a58" stroke-width="1.2"/>
+      <path d="M-19 4 a10 9 0 0 1 20 0Z M3 4 a10 9 0 0 1 20 0Z" fill="#94dba0" stroke="#4f9a58" stroke-width="1.2"/></g>
+    <g transform="translate(58 198)"><path d="M-22 -8 h44 q-3 18 -22 18 q-19 0 -22 -18Z" fill="#f5f0e6"/><ellipse cx="0" cy="-8" rx="22" ry="5" fill="#b8763d"/>${steam(0,-12)}</g>
+    <path d="M330 222 L380 176M338 224 L388 180" stroke="#7a4a24" stroke-width="3" stroke-linecap="round"/>`;
+  },
+  drivehome(u){
+    let lamps = ""; for (let k = 0; k < 2; k++) for (let x = 0; x < 400; x += 80) { const X = x + k*400;
+      lamps += `<path d="M${X} 168 V122 q0 -6 8 -6 h6" stroke="#3a3f52" stroke-width="3" fill="none"/><circle cx="${X+15}" cy="117" r="3" fill="#ffe08a"/><path d="M${X+15} 120 l-12 48 h24Z" fill="#ffe7a0" opacity=".08"/>`; }
+    let lights = ""; for (let x=10;x<400;x+=26) lights += `<circle class="tw" style="animation-delay:${(x%7)*.3}s" cx="${x}" cy="150" r="1.8" fill="#ffd27a"/>`;
     return `<defs>${grad(u+"sk",["#0a1530","#1c2e5a"])}</defs>
-    <rect width="400" height="240" fill="url(#${u}sk)"/>${stars(40,120,3)}
-    <circle class="glow" cx="320" cy="48" r="30" fill="#fff4cc" opacity=".25"/><circle cx="320" cy="48" r="17" fill="#fff4cc"/><circle cx="328" cy="42" r="15" fill="#132350"/>
-    <path d="M0 150 C70 122 150 140 220 128 C290 116 340 140 400 126 V180 H0Z" fill="#132447"/>
-    <rect y="178" width="400" height="62" fill="#0d1c3a"/>${lights}
-    ${wave(214,3,"#0a1730",10,.9)}
-    <rect y="166" width="400" height="5" fill="#2a2c3e"/>
-    <g class="runback">
-      <rect x="0" y="126" width="190" height="38" rx="12" fill="#3a4a7a"/>
-      <path d="M0 126 h-4 q-20 0 -24 20 v18 h28Z" fill="#33426e"/>
-      <rect x="-28" y="152" width="218" height="5" fill="#ffcf5a"/>${win}
-      <circle cx="97" cy="142" r="6.5" fill="var(--seal)"/><path d="M93.5 141 q1.2 1.2 2.4 0M98.6 141 q1.2 1.2 2.4 0" stroke="#15202b" stroke-width="1" fill="none"/><ellipse cx="97" cy="144" rx="1.5" ry="1" fill="#15202b"/>
-      <text class="zz" x="104" y="128" font-size="10" font-weight="700" fill="#cfe2ff" font-family="Fredoka, sans-serif">z</text>
-      <text class="zz" style="animation-delay:1.2s" x="108" y="124" font-size="8" font-weight="700" fill="#cfe2ff" font-family="Fredoka, sans-serif">z</text>
-      <g fill="#1b1d26"><circle cx="20" cy="166" r="5"/><circle cx="52" cy="166" r="5"/><circle cx="140" cy="166" r="5"/><circle cx="172" cy="166" r="5"/></g>
-    </g>`;
+    <rect width="400" height="240" fill="url(#${u}sk)"/>${stars(40,110,3)}
+    <circle class="glow" cx="320" cy="44" r="30" fill="#fff4cc" opacity=".25"/><circle cx="320" cy="44" r="17" fill="#fff4cc"/><circle cx="328" cy="38" r="15" fill="#132350"/>
+    <path d="M0 140 C70 112 150 130 220 118 C290 106 340 130 400 116 V160 H0Z" fill="#132447"/>
+    ${lights}
+    <g class="pass back" style="animation-duration:5s">${lamps}</g>
+    <rect y="168" width="400" height="72" fill="#1d2130"/>
+    <rect y="168" width="400" height="4" fill="#3a3f52"/>
+    <g class="lane back"><path d="M0 222 h34M70 222 h34M140 222 h34M210 222 h34M280 222 h34M350 222 h34M420 222 h34M490 222 h34" stroke="#c9ced6" stroke-width="4" stroke-linecap="round" opacity=".7"/></g>
+    <g transform="translate(270 142) scale(-1 1)"><g class="bob" style="animation-duration:.9s">
+      <path d="M137 32 L250 14 L250 56Z" fill="#fff3c0" opacity=".16"/>
+      ${car("#5a74c8", true, true)}
+    </g></g>
+    <text class="zz" x="186" y="138" font-size="12" font-weight="700" fill="#cfe2ff" font-family="Fredoka, sans-serif">z</text>
+    <text class="zz" style="animation-delay:1.2s" x="192" y="132" font-size="9" font-weight="700" fill="#cfe2ff" font-family="Fredoka, sans-serif">z</text>`;
   }
 };
 const scene = (stop) => svgWrap(SCENES[stop.scene](uid()), "0 0 400 240", stop.place + " 插圖");
@@ -653,6 +731,7 @@ function heroSVG(){
     <path d="M0 138 C40 112 90 118 130 126 C170 108 220 104 260 120 C300 110 350 116 400 108 V170 H0Z" style="fill:var(--hill-2)"/>
     <path d="M150 140 v-26 h4 v26M150 114 h26 v3 h-26M200 140 v-20 h3 v20M200 120 h20 v3 h-20" style="stroke:var(--hill)" stroke-width="2.5" fill="none"/>
     <path d="M0 150 C40 134 90 138 140 146 C200 138 260 140 400 136 V180 H0Z" style="fill:var(--hill)"/>
+    <g class="drive"><g transform="translate(0 127) scale(.2)">${car("#ffa865", true)}</g></g>
     <g class="beam"><path d="M62 92 L-60 70 L-60 116Z" style="fill:var(--beam)"/></g>
     <path d="M30 156 C40 140 80 138 92 156Z" style="fill:var(--hill)"/>
     <path d="M54 142 L57 98 H67 L70 142Z" fill="#f2f2ee"/><path d="M55.6 128 H68.4 L68 120 H56Z M56.4 112 H67.6 L67.2 104 H56.8Z" fill="#e2524a"/>
@@ -685,6 +764,7 @@ const ICON = {
   share:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg>`,
   check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`,
   fwd:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>`,
+  car:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16v-3l2-5h11l3 5h2v3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/></svg>`,
   walk:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2-6 3 3v3M9 12l2-4 4 1 2 4M11 8l-2 5"/></svg>`
 };
 
@@ -781,7 +861,7 @@ function renderNow(){
     el.innerHTML = `
       <div class="now-top"><span class="now-tag">${ICON.star} 行程走完了</span><span class="now-clock">${clock}</span></div>
       <h2>辛苦了，回家路上做拼貼吧</h2>
-      <p class="now-sub">今天打卡 ${doneCount()} / 6 站</p>
+      <p class="now-sub">今天打卡 ${doneCount()} / ${STOPS.length} 站</p>
       <div class="duo one"><button class="btn primary" type="button" data-dock="collage">${ICON.cam} 製作旅程拼貼</button></div>`;
     return;
   }
@@ -800,8 +880,8 @@ function renderNow(){
 function renderProg(){
   const n = doneCount(), cur = currentStop();
   $("#prog").innerHTML = `
-    <div class="prog-head"><b>打卡進度</b><span>${n} / 6</span></div>
-    <div class="dots">${STOPS.map((s, i) => {
+    <div class="prog-head"><b>打卡進度</b><span>${n} / ${STOPS.length}</span></div>
+    <div class="dots" style="--n:${STOPS.length}">${STOPS.map((s, i) => {
       const cls = checkins[s.id] ? "done" : cur && cur.id === s.id ? "cur" : statusMap[s.id] === "past" ? "past" : "";
       return `<button type="button" class="${cls}" data-jump="${s.id}" aria-label="第 ${i+1} 站 ${esc(s.short)}${checkins[s.id] ? "，已打卡" : ""}"><i>${checkins[s.id] ? ICON.check : i+1}</i><small>${esc(s.short)}</small></button>`;
     }).join("")}</div>`;
@@ -837,16 +917,16 @@ function renderList(){
           <input class="sr" type="file" accept="image/*" id="lf-${s.id}" data-file="${s.id}" tabindex="-1">
         </div>
       </article>
-      ${next ? `<div class="hop">${ICON.walk}<span>${mins(next.start) - mins(s.end) > 0 ? `前往下一站 · 約 ${mins(next.start) - mins(s.end)} 分鐘` : "吃飽就接著出發"}</span></div>` : ""}
+      ${next ? `<div class="hop">${/開車/.test(s.hop || "") ? ICON.car : ICON.walk}<span>${esc(s.hop || "前往下一站")}</span></div>` : ""}
     </li>`; }).join("");
   guardImages($("#list"));
 }
 function renderFinale(){
-  const n = doneCount(), rots = [-4,3,-2,4,-3,2];
+  const n = doneCount(), rots = [-4,3,-2,4,-3,2,-3,3];
   $("#finale").innerHTML = `
     <div class="finale-head">${sealSVG({bob:true,wave:true})}<div><h2 id="finaleTitle">旅程拼貼</h2>
       ${tripOver() ? `<span class="trip-over">${ICON.star.replace("<svg","<svg width=\"16\" height=\"16\"")} 旅程結束，辛苦了</span>` : ""}</div></div>
-    <p>已打卡 ${n} / 6 站。照片會排成 IG 貼文尺寸（4:5）的拼貼，可下載 JPG 或 PDF。</p>
+    <p>已打卡 ${n} / ${STOPS.length} 站。照片會排成 IG 貼文尺寸（4:5）的拼貼，可下載 JPG 或 PDF。</p>
     <div class="slots">${STOPS.map((s,i) => checkins[s.id]
       ? `<button class="slot has" type="button" style="--rot:${rots[i]}deg" data-open="${s.id}" data-focus="ci" aria-label="${esc(s.place)} 打卡照"><img data-photo src="${checkins[s.id].url}" alt=""></button>`
       : `<button class="slot" type="button" data-open="${s.id}" data-focus="ci" aria-label="到 ${esc(s.place)} 打卡">${i+1}<small>${esc(s.short)}</small></button>`).join("")}</div>
@@ -992,7 +1072,7 @@ const FD = `"LXGW WenKai TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",s
 const FN = `Fredoka,"Noto Sans TC",sans-serif`;
 async function ensureFonts(){
   try { await Promise.all([
-    document.fonts.load(`700 60px "LXGW WenKai TC"`, "基隆海豹散步日記正濱和平島塔廟口回家站"),
+    document.fonts.load(`700 60px "LXGW WenKai TC"`, "基隆海豹散步日記站" + STOPS.map(s => s.short + s.place + s.title + s.seal).join("")),
     document.fonts.load(`600 30px Fredoka`, "0123456789:./"),
     document.fonts.load(`500 30px "Noto Sans TC"`, "打卡站")
   ]); } catch {}
@@ -1032,10 +1112,10 @@ function drawRoute(ctx, active){
   const x0 = 100, x1 = 980, y = 1278;
   ctx.strokeStyle = "rgba(255,255,255,.35)"; ctx.lineWidth = 3; ctx.setLineDash([10,10]);
   ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(x1,y); ctx.stroke(); ctx.setLineDash([]);
-  STOPS.forEach((s,i) => { const x = x0 + (x1-x0)*i/5, on = !!checkins[s.id];
+  STOPS.forEach((s,i) => { const x = x0 + (x1-x0)*i/(STOPS.length-1), on = !!checkins[s.id];
     ctx.beginPath(); ctx.arc(x, y, i === active ? 15 : 11, 0, 7);
     ctx.fillStyle = on ? "#ffa865" : "#0c2c47"; ctx.fill(); ctx.lineWidth = 4; ctx.strokeStyle = on ? "#ffd2ad" : "rgba(255,255,255,.5)"; ctx.stroke();
-    ctx.fillStyle = i === active ? "#ffd2ad" : "rgba(231,240,247,.85)"; ctx.font = `500 25px ${FD}`; ctx.textAlign = "center"; ctx.fillText(s.short, x, y + 48); });
+    ctx.fillStyle = i === active ? "#ffd2ad" : "rgba(231,240,247,.85)"; ctx.font = `500 ${STOPS.length > 6 ? 23 : 25}px ${FD}`; ctx.textAlign = "center"; ctx.fillText(s.short, x, y + 48); });
   ctx.textAlign = "left";
 }
 function cover(ctx, img, x, y, w, h){
@@ -1069,7 +1149,8 @@ const LAYOUTS = {
   1:[[0,0,1,1]], 2:[[0,0,1,.5],[0,.5,1,.5]], 3:[[0,0,1,.54],[0,.54,.5,.46],[.5,.54,.5,.46]],
   4:[[0,0,.5,.5],[.5,0,.5,.5],[0,.5,.5,.5],[.5,.5,.5,.5]],
   5:[[0,0,.5,.45],[.5,0,.5,.45],[0,.45,1/3,.55],[1/3,.45,1/3,.55],[2/3,.45,1/3,.55]],
-  6:[[0,0,.5,1/3],[.5,0,.5,1/3],[0,1/3,.5,1/3],[.5,1/3,.5,1/3],[0,2/3,.5,1/3],[.5,2/3,.5,1/3]]
+  6:[[0,0,.5,1/3],[.5,0,.5,1/3],[0,1/3,.5,1/3],[.5,1/3,.5,1/3],[0,2/3,.5,1/3],[.5,2/3,.5,1/3]],
+  7:[[0,0,.5,.34],[.5,0,.5,.34],[0,.34,1/3,.32],[1/3,.34,1/3,.32],[2/3,.34,1/3,.32],[0,.66,.5,.34],[.5,.66,.5,.34]]
 };
 async function drawCollage(){
   await ensureFonts();
@@ -1077,9 +1158,9 @@ async function drawCollage(){
   drawBg(ctx);
   const done = STOPS.filter(s => checkins[s.id]);
   ctx.fillStyle = "#e7f0f7"; ctx.font = `700 74px ${FD}`; ctx.fillText("基隆海豹散步日記", 64, 128);
-  ctx.fillStyle = "#8ec7e6"; ctx.font = `600 32px ${FN}`; ctx.fillText(`${tripDate()}  ·  ${done.length} / 6 STOPS`, 66, 182);
+  ctx.fillStyle = "#8ec7e6"; ctx.font = `600 32px ${FN}`; ctx.fillText(`${tripDate()}  ·  ${done.length} / ${STOPS.length} STOPS`, 66, 182);
   drawSeal(ctx, 820, 20, 1.6, false);
-  const rots = [-2.6,2.2,-1.6,2.8,-2.2,1.6], ax = 56, ay = 236, aw = 968, ah = 940;
+  const rots = [-2.6,2.2,-1.6,2.8,-2.2,1.6,-2,2.4], ax = 56, ay = 236, aw = 968, ah = 940;
   const L = LAYOUTS[done.length];
   for (let i = 0; i < done.length; i++){
     const s = done[i], [fx,fy,fw,fh] = L[i], m = 16;
@@ -1095,7 +1176,7 @@ async function drawStopPage(s){
   const i = STOPS.indexOf(s), rec = checkins[s.id];
   ctx.fillStyle = "#5fd4c6"; ctx.font = `600 30px ${FN}`; ctx.fillText(`STOP ${pad(i+1)}  ·  ${s.start}–${s.end}`, 66, 110);
   ctx.fillStyle = "#e7f0f7"; ctx.font = `700 66px ${FD}`; ctx.fillText(fitText(ctx, s.title, 700), 64, 186);
-  drawSeal(ctx, 840, 50, 1.3, i === 5);
+  drawSeal(ctx, 840, 50, 1.3, i === STOPS.length - 1);
   const img = await photoImg(s.id);
   polaroid(ctx, img, 110, 250, 860, 950, -1.4, s.place, "", { bottom: 150, note: rec?.note || s.seal });
   drawRoute(ctx, i);
@@ -1267,12 +1348,12 @@ document.addEventListener("keydown", e => {
 })();
 
 async function init(){
-  $("#brand").innerHTML = `${sealSVG({})}<div><b>海豹漫遊基隆</b><small>港都一日散步</small></div>`;
+  $("#brand").innerHTML = `${sealSVG({})}<div><b>海豹漫遊基隆</b><small>開車港都一日遊</small></div>`;
   $("#heroArt").innerHTML = heroSVG();
   const d = new Date(); $("#dayLabel").textContent = `${d.getMonth()+1} 月 ${d.getDate()} 日 · 依現在時間標示進度`;
   initTheme(); initFz(); initBubbles(); renderAll();
   const saved = await dbAll();
-  Object.entries(saved).forEach(([k, v]) => { if (v && v.blob) setCheckin(k, v); });
+  Object.entries(saved).forEach(([k, v]) => { if (v && v.blob && STOPS.some(s => s.id === k)) setCheckin(k, v); });
   renderAll();
   const h = (location.hash || "").slice(1);
   if (STOPS.some(s => s.id === h)) openDetail(h, "none");
