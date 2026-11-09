@@ -386,7 +386,7 @@ main{position:relative;z-index:1;padding-block:14px 20px}
   <div class="wrap hero-copy">
     <p class="eyebrow">KEELUNG · 開車一日 · 08:30–20:00</p>
     <h1>跟著海豹，<br>把<em>基隆</em>走一圈</h1>
-    <p class="lede">開車從台北出發，先逛潮境智能海洋館，中午在八斗子的簡單吃用餐，下午回潮境公園吹海風、喝咖啡，傍晚登基隆塔看夕陽，最後在廟口吃飽回家。每站拍一張打卡照，回程就能下載整天的拼貼。</p>
+    <p class="lede">開車從台北出發，先逛潮境智能海洋館，中午在八斗子的簡單吃用餐，飯後進市區吃胡椒餅和蒟蒻，下午回潮境公園吹海風、喝咖啡，傍晚登基隆塔看夕陽，最後在廟口吃飽回家。每站拍一張打卡照，回程就能下載整天的拼貼。</p>
   </div>
 </section>
 
@@ -428,7 +428,7 @@ const STOPS = [
     summary:"國道 1 號接台 62 線，一路開到八斗子海邊。",
     intro:"從台北西門出發，上國道 1 號往基隆方向，再接台 62 線（萬瑞快速道路）往八斗子，下交流道後沿北寧路就到潮境，車程約 50 分鐘到 1 小時。假日潮境的停車位有限，早一點到比較好停。",
     route:["台北西門 → 國道 1 號往基隆方向","接台 62 線（萬瑞快速道路）往八斗子方向","八斗子交流道下，沿北寧路約 5 分鐘到潮境"],
-    highlights:["台 62 高架段可以看到山景和海","出發前先把今天的導航順序存好：潮境智能海洋館 → 簡單吃（八斗街） → 潮境公園 → 東岸停車場"],
+    highlights:["台 62 高架段可以看到山景和海","出發前先把今天的導航順序存好：潮境智能海洋館 → 簡單吃（八斗街） → 聚爐益爆漿胡椒餅 → 潮境公園 → 東岸停車場"],
     tips:["台 62 往東走，瑞芳出口在前、八斗子在後，別太早下交流道","假日潮境停車場容易滿，可改停海科館區的停車場","基隆多雨，車上放一把傘"],
     seal:"海豹坐副駕，負責看海和報路。" },
   { id:"d2", start:"09:30", end:"11:30", title:"潮境智能海洋館", place:"潮境智能海洋館", short:"海洋館", map:"潮境智能海洋館", scene:"aquarium",
@@ -439,24 +439,33 @@ const STOPS = [
     highlights:["約 320 種海洋生物","基隆近海的魚群與珊瑚復育","漂浮的水母展區","可加購的互動體驗（項目以現場為準）"],
     tips:["需購票，建議先上官網預約購票","開放時間、休館日與票價以官方公告為準","館內拍照不要開閃光燈","假日人多，早點進館比較好逛"],
     seal:"玻璃另一邊都是親戚，海豹看得捨不得走。" },
-  { id:"d3", start:"11:40", end:"13:00", title:"八斗子簡單吃午餐", place:"簡單吃", short:"午餐", map:"簡單吃 基隆市中正區八斗街6號", scene:"lunch",
-    hop:"開車約 5–10 分鐘回潮境",
+  { id:"d3", start:"11:40", end:"12:50", title:"八斗子簡單吃午餐", place:"簡單吃", short:"午餐", map:"簡單吃 202基隆市中正區砂子里八斗街6號", scene:"lunch",
+    hop:"開車約 20 分鐘到市區",
     summary:"大家討論後選定的午餐：八斗子漁村裡的簡單吃。",
-    intro:"午餐吃八斗子的「簡單吃」，地址是基隆市中正區八斗街 6 號，就在潮境旁邊的八斗子漁村裡，開車幾分鐘就到，吃完回潮境公園也很近。12 點前到可以避開午餐尖峰。",
-    route:["從潮境開往八斗街，約 5–10 分鐘","地址：基隆市中正區八斗街 6 號","八斗子巷弄較窄，車子停附近停車場再走過去比較方便"],
+    intro:"午餐吃八斗子的「簡單吃」，地址是 202 基隆市中正區砂子里八斗街 6 號，就在潮境旁邊的八斗子漁村裡，開車幾分鐘就到。12 點前到可以避開午餐尖峰，吃完再進市區吃點心。",
+    route:["從潮境開往八斗街，約 5–10 分鐘","地址：202 基隆市中正區砂子里八斗街 6 號","八斗子巷弄較窄，車子停附近停車場再走過去比較方便"],
     food:["簡單吃（八斗街 6 號），現場看菜單點餐"],
-    highlights:["潮境附近，吃完回草原很順路","八斗子漁村的巷弄風景"],
+    highlights:["潮境附近，從海洋館過來很近","八斗子漁村的巷弄風景"],
     tips:["營業時間與公休日以店家公告為準，出發前先查一下","假日中午人多，早點到比較不用等"],
     seal:"剛看完魚就來吃魚……海豹決定不要想太多。" },
-  { id:"d4", start:"13:10", end:"15:10", title:"海風草原與海景咖啡", place:"潮境公園", short:"潮境", map:"潮境公園", scene:"chaojing",
+  { id:"d3b", start:"13:10", end:"13:50", title:"飯後點心：胡椒餅＋蒟蒻", place:"聚爐益胡椒餅・活力站蒟蒻屋", short:"點心", map:"聚爐益爆漿胡椒餅 200基隆市仁愛區愛四路88-1號", scene:"snack",
+    hop:"開車約 20 分鐘回潮境",
+    summary:"午餐後進市區，吃爆漿胡椒餅和蒟蒻當點心。",
+    intro:"吃完簡單吃，開車進基隆市區吃大家討論定的兩家點心：先到愛四路 88-1 號的聚爐益爆漿胡椒餅，再走到仁一路 133 號的活力站蒟蒻屋。兩家都在廟口附近，車停好用走的就能吃完兩家，再開車回潮境公園。",
+    route:["從八斗子開往基隆市區，約 20 分鐘","車停東岸立體停車場或附近公有停車場","步行到愛四路 88-1 號：聚爐益爆漿胡椒餅","再走到仁一路 133 號：活力站蒟蒻屋"],
+    food:["聚爐益爆漿胡椒餅（200 基隆市仁愛區愛四路 88-1 號）","活力站蒟蒻屋（200 基隆市仁愛區仁一路 133 號）"],
+    highlights:["兩家點心都在廟口附近，走路就到","吃完再回潮境吹海風"],
+    tips:["胡椒餅剛出爐很燙，內餡會爆漿，小心咬","兩家店的營業時間與公休日以店家公告為準","市區不要臨停，直接停停車場最省事"],
+    seal:"胡椒餅好燙！海豹用蒟蒻降溫。" },
+  { id:"d4", start:"14:10", end:"15:30", title:"海風草原與海景咖啡", place:"潮境公園", short:"潮境", map:"潮境公園", scene:"chaojing",
     hop:"開車約 20 分鐘，停好車",
-    summary:"吃飽回潮境草原散步、看裝置藝術，再找間咖啡廳看海休息。",
+    summary:"吃完點心回潮境草原散步、看裝置藝術，再找間咖啡廳看海休息。",
     intro:"潮境公園在八斗子海邊，前身是垃圾掩埋場，整理後變成一大片面海的草原。坡上有用海洋廢棄物做成的裝置藝術，天氣好時可以遠眺基隆嶼，風大的日子常有人來放風箏。散步完就近找間咖啡廳坐一下：海洋館北棟有進駐咖啡和茶飲（如咖央 Cafe Jia Song、滿山望海），八斗子車站旁也有 BOSS 咖啡廚房，點杯咖啡看海，休息好再開車回市區。",
-    route:["從八斗街開回潮境，約 5–10 分鐘","停潮境公園停車場，散步完步行到咖啡廳"],
+    route:["從市區開回潮境，約 20 分鐘","停潮境公園停車場，散步完步行到咖啡廳"],
     highlights:["面海大草原，視野很開闊","海洋廢棄物裝置藝術，拍照很好看","天氣好時遠眺基隆嶼","吹完海風喝杯咖啡休息"],
     tips:["海邊風大，帶件外套，帽子要壓好","草地幾乎沒有遮蔽，記得防曬","咖啡廳的營業時間與店家狀況以現場為準，出發前先查一下","保育區內不能撿拾或捕捉海洋生物"],
     seal:"風好大，鬍鬚都吹歪了；還好有杯熱拿鐵。" },
-  { id:"d5", start:"15:30", end:"17:20", title:"登高看港灣夕陽", place:"基隆塔", short:"基隆塔", map:"基隆塔", scene:"tower",
+  { id:"d5", start:"15:50", end:"17:20", title:"登高看港灣夕陽", place:"基隆塔", short:"基隆塔", map:"基隆塔", scene:"tower",
     hop:"步行約 10 分鐘",
     summary:"車停市區，搭電梯上塔頂看港灣和日落。",
     intro:"從潮境開回市區，把車停在東岸立體停車場或附近的公有停車場，接下來基隆塔和廟口都用走的，不用再移車。基隆塔是 2023 年啟用的新地標，從義二路搭電梯上到塔頂，再經過空橋接到中正公園。秋冬日落大約在下午五點左右，這個時段上去，剛好看港灣從夕陽變成夜景。",
@@ -466,12 +475,12 @@ const STOPS = [
     seal:"從這麼高看港口，船都變得像玩具一樣。" },
   { id:"d6", start:"17:30", end:"19:00", title:"廟口夜市美食巡禮", place:"基隆廟口夜市", short:"廟口", map:"基隆廟口夜市", scene:"market",
     hop:"走回停車場取車",
-    summary:"黃燈籠下吃滷肉飯、肉羹湯和營養三明治，甜點吃胡椒餅和蒟蒻。",
-    intro:"廟口夜市以奠濟宮為中心，沿著仁三路與愛四路展開，一排黃色燈籠就是它的招牌畫面。很多攤位都有編號，建議先吃正餐再慢慢掃小吃：仁三路的天一香肉焿順點滷肉飯配肉羹湯，再到天盛舖吃現炸的營養三明治，趁熱吃最好。甜點是大家討論定的兩家：愛四路 88-1 號的聚爐益爆漿胡椒餅，和仁一路 133 號的活力站蒟蒻屋，都在廟口附近走路就到。",
-    route:["從基隆塔步行下山約 10 分鐘","吃完正餐，走到愛四路 88-1 號買胡椒餅，再到仁一路 133 號的活力站蒟蒻屋"],
-    food:["天一香肉焿順：滷肉飯＋肉羹湯","天盛舖營養三明治（58 號攤位，趁熱吃）","鼎邊趖","甜點：聚爐益爆漿胡椒餅（愛四路 88-1 號）","甜點：活力站蒟蒻屋（仁一路 133 號）"],
+    summary:"黃燈籠下吃滷肉飯、肉羹湯和營養三明治。",
+    intro:"廟口夜市以奠濟宮為中心，沿著仁三路與愛四路展開，一排黃色燈籠就是它的招牌畫面。很多攤位都有編號，建議先吃正餐再慢慢掃小吃：仁三路的天一香肉焿順點滷肉飯配肉羹湯，再到天盛舖吃現炸的營養三明治，趁熱吃最好。",
+    route:["從基隆塔步行下山約 10 分鐘"],
+    food:["天一香肉焿順：滷肉飯＋肉羹湯","天盛舖營養三明治（58 號攤位，趁熱吃）","鼎邊趖"],
     highlights:["奠濟宮前的黃燈籠街景","一攤一攤有編號的老攤位"],
-    tips:["胡椒餅剛出爐很燙，內餡會爆漿，小心咬","兩家甜點店的營業時間以店家公告為準","不少攤位只收現金","尖峰時段排隊久，可以分頭排","伴手禮可以在這裡一起買好再回停車場"],
+    tips:["不少攤位只收現金","尖峰時段排隊久，可以分頭排","伴手禮可以在這裡一起買好再回停車場"],
     seal:"營養三明治裡有沒有魚？海豹想知道。" },
   { id:"d7", start:"19:00", end:"20:00", title:"開車回台北", place:"基隆 → 台北", short:"回家", map:"西門町", scene:"drivehome",
     summary:"取車上國道，乘客在車上整理今天的照片。",
@@ -616,7 +625,7 @@ const SCENES = {
     <rect x="70" y="122" width="260" height="60" fill="#22152b"/>
     <path d="M196 98 l4 -10 l4 10Z" fill="#1d1226"/>
     <path d="M0 58 Q200 98 400 58" stroke="#3b2a3e" stroke-width="1.5" fill="none"/>${lan}
-    ${stall(14,"營養三明治")}${stall(146,"鼎邊趖")}${stall(278,"胡椒餅")}
+    ${stall(14,"營養三明治")}${stall(146,"鼎邊趖")}${stall(278,"滷肉飯")}
     <g transform="translate(200 184)"><path d="M-14 0 h28 q-2 12 -14 12 q-12 0 -14 -12Z" fill="#f5f0e6"/>
       <path class="steam" d="M-6 -2 q-4 -6 0 -12 q4 -6 0 -12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
       <path class="steam" style="animation-delay:.9s" d="M2 -2 q-4 -6 0 -12 q4 -6 0 -12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
@@ -671,33 +680,58 @@ const SCENES = {
     ${sealAt(20,118,.5,{bob:true})}`;
   },
   lunch(u){
-    let awn = ""; for (let x = 0; x < 400; x += 25) awn += `<rect x="${x}" y="0" width="25" height="22" fill="${(x/25)%2 ? "#fff3d6" : "#2f7fb3"}"/>`;
-    const scal = `<path d="M0 22 ${Array.from({length:16},()=>"q6.25 9 12.5 0 q6.25 9 12.5 0").join(" ").replace(/q6.25 9 12.5 0 q6.25 9 12.5 0/g,"q12.5 10 25 0")}" fill="#2f7fb3"/>`;
+    let awn = ""; for (let x = 96; x < 304; x += 26) awn += `<rect x="${x}" y="104" width="26" height="16" fill="${((x-96)/26)%2 ? "#fff3d6" : "#2f7fb3"}"/>`;
+    const scal = `<path d="M96 120 ${Array.from({length:8},()=>"q13 9 26 0").join(" ")}" fill="#2f7fb3"/>`;
     const steam = (x, y) => [0,.9,1.7].map((d,k) => `<path class="steam" style="animation-delay:${d}s" d="M${x-7+k*7} ${y} q-4 -6 0 -12 q4 -6 0 -12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>`).join("");
+    const win = x => `<rect x="${x}" y="132" width="50" height="34" rx="3" fill="#ffe3a0"/><path d="M${x+25} 132 v34M${x} 149 h50" stroke="#c9a46a" stroke-width="2"/><rect x="${x-3}" y="166" width="56" height="4" rx="1" fill="#b98a55"/>`;
     return `<defs>${grad(u+"sk",["#9ad3f3","#e8f6ff"])}${grad(u+"se",["#3a9bcc","#1a628f"])}</defs>
     <rect width="400" height="240" fill="url(#${u}sk)"/>
-    <g class="drift">${cloud(300,52,.8)}</g>
-    <path d="M0 84 C70 66 140 76 210 68 C280 60 340 76 400 66 V96 H0Z" fill="#7aa98f"/>
-    <rect y="94" width="400" height="60" fill="url(#${u}se)"/>
-    ${boat(30,112,"#e94f4f",0)}${boat(200,118,"#2f6fb3",1.1)}${boat(320,110,"#f2a33a",.5)}
-    <rect y="150" width="400" height="8" fill="#7c6a58"/>
+    <g class="drift">${cloud(330,44,.8)}${cloud(60,36,.6)}</g>
+    <rect y="74" width="400" height="40" fill="url(#${u}se)"/>
+    ${boat(14,84,"#e94f4f",0)}${boat(336,88,"#f2a33a",.6)}
+    <path d="M0 96 C30 86 60 92 90 98 V190 H0Z M310 98 C340 88 370 92 400 86 V190 H310Z" fill="#7aa98f"/>
+    <rect x="90" y="56" width="220" height="134" fill="#f4e3c3"/>
+    <rect x="84" y="50" width="232" height="10" rx="2" fill="#8a5a3a"/>
+    <rect x="128" y="64" width="144" height="34" rx="6" fill="#fff8e8" stroke="#c6461f" stroke-width="2.5"/>
+    <text x="200" y="89" text-anchor="middle" font-size="22" font-weight="700" fill="#7a2a12" font-family="Noto Sans TC, sans-serif" letter-spacing="4">簡單吃</text>
     ${awn}${scal}
-    <rect x="132" y="34" width="136" height="28" rx="7" fill="#fff3d0" stroke="#c6461f" stroke-width="2"/>
-    <text x="200" y="53.5" text-anchor="middle" font-size="15" font-weight="700" fill="#7a2a12" font-family="Noto Sans TC, sans-serif">八斗子・簡單吃</text>
-    ${sealAt(286,128,.52,{bob:true})}
-    <rect y="170" width="400" height="70" fill="#c58a52"/><rect y="164" width="400" height="9" fill="#a06d3e"/>
-    <g transform="translate(150 192)">
-      <path d="M-40 -12 h80 q-5 30 -40 30 q-35 0 -40 -30Z" fill="#f5f0e6"/><ellipse cx="0" cy="-12" rx="40" ry="9" fill="#c98b4a"/>
-      <path d="M-26 -14 q8 -5 16 0 q8 5 16 0 q8 -5 16 0M-24 -10 q8 -4 16 0 q8 4 16 0 q8 -4 14 0" stroke="#fff4dc" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <circle cx="-14" cy="-13" r="3" fill="#6bbf59"/><circle cx="16" cy="-12" r="2.6" fill="#6bbf59"/><circle cx="2" cy="-15" r="2.4" fill="#f2c94c"/>
-      ${steam(0,-20)}
+    ${win(108)}${win(242)}
+    <rect x="176" y="130" width="48" height="60" rx="3" fill="#6b4a33"/><rect x="180" y="134" width="40" height="22" fill="#ffd98a" opacity=".85"/>
+    <path d="M182 160 h36" stroke="#4e3524" stroke-width="2"/>
+    <rect y="188" width="400" height="52" fill="#b9b2a6"/><rect y="186" width="400" height="5" fill="#8f877b"/>
+    <path d="M0 214 h400" stroke="#a59e92" stroke-width="2"/>
+    <g transform="translate(64 178)">
+      <rect x="-34" y="0" width="68" height="6" rx="2" fill="#c98b4a"/><path d="M-26 6 v26M26 6 v26" stroke="#8a5a3a" stroke-width="4"/>
+      <path d="M-26 -12 h26 q-2 12 -13 12 q-11 0 -13 -12Z" fill="#f5f0e6"/><ellipse cx="-13" cy="-12" rx="13" ry="3.5" fill="#c98b4a"/>${steam(-13,-16)}
+      <path d="M4 -8 h24 q-2 8 -12 8 q-10 0 -12 -8Z" fill="#f5f0e6"/><ellipse cx="16" cy="-8" rx="12" ry="3" fill="#e9c46a"/>
     </g>
-    <g transform="translate(262 202)"><ellipse cx="0" cy="0" rx="44" ry="11" fill="#f5f0e6"/>
-      <path d="M-30 -3 C-18 -14 14 -14 26 -3 C14 6 -18 6 -30 -3Z" fill="#d98a4a"/><path d="M26 -3 L38 -11 L36 -3 L38 5Z" fill="#c4743a"/>
-      <circle cx="-21" cy="-5" r="1.8" fill="#15202b"/><path d="M-8 -9 l4 8M2 -10 l4 8M12 -9 l4 8" stroke="#a85a28" stroke-width="1.5" stroke-linecap="round"/>
-      <circle cx="-36" cy="3" r="4.5" fill="#f2e15a"/></g>
-    <g transform="translate(58 198)"><path d="M-22 -8 h44 q-3 18 -22 18 q-19 0 -22 -18Z" fill="#f5f0e6"/><ellipse cx="0" cy="-8" rx="22" ry="5" fill="#b8763d"/>${steam(0,-12)}</g>
-    <path d="M330 222 L380 176M338 224 L388 180" stroke="#7a4a24" stroke-width="3" stroke-linecap="round"/>`;
+    <g transform="translate(118 186)"><path d="M-8 0 h16 l-3 -14 h-10Z" fill="#c6461f"/><circle cx="0" cy="-20" r="8" fill="#6bbf59"/><circle cx="-6" cy="-16" r="5" fill="#5aa94a"/><circle cx="6" cy="-16" r="5" fill="#5aa94a"/></g>
+    ${sealAt(262,150,.5,{bob:true})}`;
+  },
+  snack(u){
+    const steam = (x, y) => [0,.9,1.7].map((d,k) => `<path class="steam" style="animation-delay:${d}s" d="M${x-7+k*7} ${y} q-4 -6 0 -12 q4 -6 0 -12" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>`).join("");
+    const awning = (x, w, a, b) => { let o = ""; for (let i = 0; i < w/20; i++) o += `<rect x="${x+i*20}" y="98" width="20" height="14" fill="${i%2 ? b : a}"/>`;
+      return o + `<path d="M${x} 112 ${Array.from({length:w/20},()=>"q10 8 20 0").join(" ")}" fill="${a}"/>`; };
+    const bun = (x, y) => `<g transform="translate(${x} ${y})"><ellipse rx="11" ry="7" fill="#e3a857"/><ellipse cy="-2" rx="9" ry="4.5" fill="#f0c27a"/><circle cx="-3" cy="-3" r=".9" fill="#5a3a1a"/><circle cx="2" cy="-4" r=".9" fill="#5a3a1a"/><circle cx="4" cy="-1" r=".9" fill="#5a3a1a"/></g>`;
+    const cup = (x, c) => `<g transform="translate(${x} 170)"><path d="M-9 -18 h18 l-2 18 h-14Z" fill="#fff" opacity=".9"/><path d="M-8 -14 h16 l-1.6 14 h-12.8Z" fill="${c}"/><rect x="-10" y="-20" width="20" height="3" rx="1.5" fill="#e8eef3"/></g>`;
+    return `<defs>${grad(u+"sk",["#9ad3f3","#e8f6ff"])}</defs>
+    <rect width="400" height="240" fill="url(#${u}sk)"/>
+    <g class="drift">${cloud(200,40,.7)}</g>
+    <path d="M0 60 h40 v-14 h30 v14 h300 v-20 h30 V96 H0Z" fill="#b9c7d3"/>
+    <rect x="10" y="56" width="182" height="134" fill="#f1dcc0"/><rect x="6" y="52" width="190" height="8" rx="2" fill="#8a5a3a"/>
+    <rect x="208" y="56" width="182" height="134" fill="#e6f1ea"/><rect x="204" y="52" width="190" height="8" rx="2" fill="#4f8a6a"/>
+    <rect x="28" y="64" width="146" height="28" rx="6" fill="#fff8e8" stroke="#c6461f" stroke-width="2.5"/>
+    <text x="101" y="84.5" text-anchor="middle" font-size="16" font-weight="700" fill="#7a2a12" font-family="Noto Sans TC, sans-serif">爆漿胡椒餅</text>
+    <rect x="226" y="64" width="146" height="28" rx="6" fill="#fffdf6" stroke="#3f8f6a" stroke-width="2.5"/>
+    <text x="299" y="84.5" text-anchor="middle" font-size="16" font-weight="700" fill="#245c42" font-family="Noto Sans TC, sans-serif">蒟蒻屋</text>
+    ${awning(10,180,"#d9472f","#fff3d6")}${awning(210,180,"#3f9f74","#f4fff8")}
+    <g transform="translate(70 186)"><path d="M-30 0 C-34 -30 -28 -54 0 -56 C28 -54 34 -30 30 0Z" fill="#c9b8a0"/><ellipse cy="-54" rx="22" ry="5" fill="#3a2a20"/><path d="M-30 -12 h60M-32 -30 h64" stroke="#b3a088" stroke-width="2"/>${steam(0,-60)}</g>
+    <rect x="112" y="148" width="72" height="8" rx="2" fill="#a06d3e"/><path d="M118 156 v34M178 156 v34" stroke="#8a5a3a" stroke-width="4"/>
+    ${bun(130,142)}${bun(154,140)}${bun(172,143)}
+    <rect x="232" y="170" width="140" height="8" rx="2" fill="#7aa98f"/><path d="M238 178 v12M366 178 v12" stroke="#4f8a6a" stroke-width="4"/>
+    ${cup(250,"#f28c8c")}${cup(276,"#f6c453")}${cup(302,"#8fd18a")}${cup(328,"#b59cf0")}${cup(354,"#7cc5ef")}
+    <rect y="188" width="400" height="52" fill="#b9b2a6"/><rect y="186" width="400" height="5" fill="#8f877b"/><path d="M0 214 h400" stroke="#a59e92" stroke-width="2"/>
+    ${sealAt(158,160,.46,{bob:true})}`;
   },
   drivehome(u){
     let lamps = ""; for (let k = 0; k < 2; k++) for (let x = 0; x < 400; x += 80) { const X = x + k*400;
@@ -1153,7 +1187,8 @@ const LAYOUTS = {
   4:[[0,0,.5,.5],[.5,0,.5,.5],[0,.5,.5,.5],[.5,.5,.5,.5]],
   5:[[0,0,.5,.45],[.5,0,.5,.45],[0,.45,1/3,.55],[1/3,.45,1/3,.55],[2/3,.45,1/3,.55]],
   6:[[0,0,.5,1/3],[.5,0,.5,1/3],[0,1/3,.5,1/3],[.5,1/3,.5,1/3],[0,2/3,.5,1/3],[.5,2/3,.5,1/3]],
-  7:[[0,0,.5,.34],[.5,0,.5,.34],[0,.34,1/3,.32],[1/3,.34,1/3,.32],[2/3,.34,1/3,.32],[0,.66,.5,.34],[.5,.66,.5,.34]]
+  7:[[0,0,.5,.34],[.5,0,.5,.34],[0,.34,1/3,.32],[1/3,.34,1/3,.32],[2/3,.34,1/3,.32],[0,.66,.5,.34],[.5,.66,.5,.34]],
+  8:[[0,0,.5,.25],[.5,0,.5,.25],[0,.25,.5,.25],[.5,.25,.5,.25],[0,.5,.5,.25],[.5,.5,.5,.25],[0,.75,.5,.25],[.5,.75,.5,.25]]
 };
 async function drawCollage(){
   await ensureFonts();
@@ -1163,7 +1198,7 @@ async function drawCollage(){
   ctx.fillStyle = "#e7f0f7"; ctx.font = `700 74px ${FD}`; ctx.fillText("基隆海豹散步日記", 64, 128);
   ctx.fillStyle = "#8ec7e6"; ctx.font = `600 32px ${FN}`; ctx.fillText(`${tripDate()}  ·  ${done.length} / ${STOPS.length} STOPS`, 66, 182);
   drawSeal(ctx, 820, 20, 1.6, false);
-  const rots = [-2.6,2.2,-1.6,2.8,-2.2,1.6,-2,2.4], ax = 56, ay = 236, aw = 968, ah = 940;
+  const rots = [-2.6,2.2,-1.6,2.8,-2.2,1.6,-2,2.4,-1.8], ax = 56, ay = 236, aw = 968, ah = 940;
   const L = LAYOUTS[done.length];
   for (let i = 0; i < done.length; i++){
     const s = done[i], [fx,fy,fw,fh] = L[i], m = 16;
